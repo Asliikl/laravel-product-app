@@ -1,10 +1,27 @@
 <script setup>
+import { ref, onMounted } from "vue"
 import { useRouter } from "vue-router";
 
     const router =useRouter()
 
+    let products = ref([])
+
+    onMounted(async () => {
+        getProducts()
+    })
     const newProduct = () => {
         router.push('/products/create')
+    }
+
+    const ourImage = (img) => {
+        return "/upload/"+img
+    }
+
+    const getProducts = async() => {
+        let response = await axios.get ('/api/products')
+        .then((response) =>  {
+            products.value = response.data.products
+        })
     }
 </script>
 
@@ -38,18 +55,18 @@ import { useRouter } from "vue-router";
         </div>
 
         <!-- product 1 -->
-        <div class="table--items products__list__item" >
+        <div class="table--items products__list__item" v-for="product in products" :key="product.id" >
             <div class="products__list__item--imgWrapper">
-                <img class="products__list__item--img" src="/public/upload/1.jpg"  style="height: 40px;">
+                <img class="products__list__item--img" :src="ourImage(product.image)" style="height: 40px;">
             </div>
             <a href="# " class="table--items--col2">
-                Product name
+               {{ product.name }}
             </a>
             <p class="table--items--col2">
-                type
+                {{ product.type }}
             </p>
             <p class="table--items--col3">
-                10
+                {{ product.quantity }}
             </p>     
             <div>     
                 <button class="btn-icon btn-icon-success" >

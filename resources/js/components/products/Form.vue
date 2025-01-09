@@ -1,5 +1,6 @@
 <script setup>
-import { reactive, computed } from "vue";
+import { reactive, ref } from "vue";
+import {useRouter} from "vue-router"
 
 const form = reactive({
     name: "",
@@ -9,6 +10,10 @@ const form = reactive({
     quantity: "",
     price: ""
 });
+
+const router = useRouter()
+
+let errors =ref([])
 
 const getImage = () => {
     let image = "/upload/no-image.jpg"; 
@@ -35,11 +40,17 @@ const handleFileChange = (e) => {
 const handleSave = () => {
     axios.post('/api/products', form)
         .then(response => {
-            console.log("Product saved:", response.data);
+            router.push('/')
+            toast.fire({
+                icon: "success",
+                title: "Product Added Successfully"
+            });
         })
-        .catch(error => {
-            console.error("Error saving product:", error);
-        });
+        .catch((error) => {
+            if(error.response.status == 422){
+                errors.value =error.response.data.errors
+            }
+        })
 };
 </script>
 
@@ -60,9 +71,11 @@ const handleSave = () => {
             <div class="products__create__main--addInfo card py-2 px-2 bg-white">
                 <p class="mb-1">Name</p>
                 <input type="text" class="input" v-model="form.name" />
-
+                <small style="color:red;" v-if="errors.name">{{errors.name }}</small>
+                
                 <p class="my-1">Description (optional)</p>
                 <textarea cols="10" rows="5" class="textarea" v-model="form.description"></textarea>
+                <small style="color:red;" v-if="errors.description">{{errors.description }}</small>
 
                 <div class="products__create__main--media--images mt-2">
                    <ul class="products__create__main--media--images--list list-unstyled">
