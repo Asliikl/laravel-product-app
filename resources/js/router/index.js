@@ -1,24 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import productIndex from '../components/products/index.vue'; 
-import notFound from '../components/notFound.vue'; 
-import productForm from '../components/products/Form.vue';
-
 const routes = [
     {
-        path: '/',
+        path: '/products',
         name: 'products.index',
-        component: productIndex
+        component: () => import('../components/products/index.vue')
     },
     {
         path: '/products/create',
         name: 'products.create',
-        component: productForm
+        component: () => import('../components/products/Form.vue')
     },
     {
-        path: '/:pathMatch(.*)*', 
-        name: 'notfound',
-        component: notFound  
+        path: '/products/:id/edit',
+        name: 'products.edit',
+        component: () => import('../components/products/Form.vue')
     }
 ]
 

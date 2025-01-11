@@ -23,6 +23,10 @@ import { useRouter } from "vue-router";
             products.value = response.data.products
         })
     }
+
+    const editProduct = (id) => {
+        router.push(`/products/${id}/edit`);
+    }
 </script>
 
 <template>
@@ -69,8 +73,8 @@ import { useRouter } from "vue-router";
                 {{ product.quantity }}
             </p>     
             <div>     
-                <button class="btn-icon btn-icon-success" >
-                    <i class="fas fa-pencil-alt"></i>
+                <button class="btn-icon btn-icon-success" @click="editProduct(product.id)">
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </button>
                 <button class="btn-icon btn-icon-danger" >
                     <i class="far fa-trash-alt"></i>

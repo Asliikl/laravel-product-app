@@ -1,5 +1,3 @@
-
-
 * {
 	margin: 0;
 	padding: 0;
@@ -9,7 +7,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7fc;
+  background-color: #f0f4f8;
     color:#FFF;
 }
 
@@ -36,10 +34,9 @@ main h1 ~ p {
 
 .container {
 	width: 100%;
-	max-width: 780px;
-	margin-top: 5rem;
-    margin-left: auto;
-    margin-right: auto;
+	max-width: 1000px;
+	margin: 2rem auto;
+	padding: 0 20px;
 }
 
 
@@ -112,10 +109,13 @@ main h1 ~ p {
 }
 
 .card {
-    
-    -webkit-box-shadow: 0 6px 13px -12px rgb(50 50 93 / 20%), 0 3px 7px -3px rgb(110 110 110 / 10%);
-    box-shadow: 0 6px 13px -12px rgb(50 50 93 / 20%), 0 3px 7px -3px rgb(110 110 110 / 10%);
-    border-radius: 4px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    padding: 20px;
+    margin-bottom: 15px;
+    height: fit-content;
 }
 
 .btn-icon {
@@ -159,19 +159,21 @@ main h1 ~ p {
 }
 
 .btn-secondary {
-    background: #FFF;
-    color: black;
+    background: #6366f1;
+    color: white;
+    border: 1px solid #e2e8f0;
 }
 .btn {
-    border: 1px solid #6a727a;
-    padding: 9px 15px;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-    background:  #f1f1f1;
-    color: #6a727a;
+    background: #4f46e5;
+    color: #334155;
 }
 
 .my-1 {
@@ -191,19 +193,21 @@ main h1 ~ p {
 
 
 .products__create__cardWrapper {
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr minmax(auto, 290px);
-    grid-template-columns: 1fr minmax(auto, 290px);
-    grid-gap: 20px;
-    color: #6a727a;
+    grid-template-columns: 3fr 2fr;
+    gap: 20px;
+    min-height: calc(100vh - 250px);
+    margin-bottom: 1.5rem;
 }
 
-.card {
-    border: 1px solid #e0e0e0;
-    -webkit-box-shadow: 0 6px 13px -12px rgb(50 50 93 / 20%), 0 3px 7px -3px rgb(110 110 110 / 10%);
-    box-shadow: 0 6px 13px -12px rgb(50 50 93 / 20%), 0 3px 7px -3px rgb(110 110 110 / 10%);
-    border-radius: 4px;
+.products__create__main {
+    height: 100%;
+    background: #f8f9ff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.products__create__sidebar {
+    height: fit-content;
 }
 
 .mb-1 {
@@ -211,10 +215,21 @@ main h1 ~ p {
 }
 
 .input {
-    padding: 9px 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    padding: 8px 12px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
     width: 100%;
+    font-size: 14px;
+    color: #4a5568;
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #a5b4fc;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.1);
 }
 
 .my-1 {
@@ -223,12 +238,21 @@ main h1 ~ p {
 }
 
 .textarea {
-    padding: 9px 15px;
+    padding: 12px 15px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     width: 100%;
-    font-size: 1.1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    color: #454f5b;
+    min-height: 120px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #5463c1;
+    box-shadow: 0 0 0 2px rgba(84, 99, 193, 0.1);
 }
 
 .checkbox-container {
@@ -351,4 +375,89 @@ main h1 ~ p {
     opacity: 0;
     width: 100%;
     cursor: pointer;
+}
+
+.products__create p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+small {
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: -12px;
+    margin-bottom: 12px;
+}
+
+/* Medya sorgusu - küçük ekranlar için */
+@media screen and (max-width: 768px) {
+    .products__create__cardWrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+}
+
+/* Form grupları için spacing */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Yatay çizgi için stil */
+hr {
+    margin: 1rem 0;
+    border: none;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Resim yükleme alanı stilleri */
+.upload-text {
+    text-align: center;
+    display: block;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.products__create__main--media--images--item--form {
+    border: 2px dashed #e2e8f0;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.products__create__main--media--images--item--form:hover {
+    border-color: #94a3b8;
+}
+
+.products__create__main--media--images--item--form--label {
+    color: #64748b;
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+}
+
+.products__create__main--media--images--item--form--input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.products__create__main--addInfo {
+    background: #ffffff;
+    border: 1px solid #eef2ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
 }
