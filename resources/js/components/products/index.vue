@@ -27,6 +27,21 @@ import { useRouter } from "vue-router";
     const editProduct = (id) => {
         router.push(`/products/${id}/edit`);
     }
+
+    const deleteProduct = async (id) => {
+        if (confirm("Bu ürünü silmek istediğinize emin misiniz?")) {
+            try {
+                const response = await axios.delete(`/api/products/${id}`);
+                if (response.data.success) {
+                    alert('Ürün başarıyla silindi');
+                    getProducts();
+                }
+            } catch (error) {
+                console.error('Silme hatası:', error);
+                alert('Ürün silinirken bir hata oluştu');
+            }
+        }
+    }
 </script>
 
 <template>
@@ -45,7 +60,6 @@ import { useRouter } from "vue-router";
         </div>
 
         <div class="table--heading mt-2 products__list__heading " style="padding-top: 20px;background:#FFF">
-            <!-- <p class="table--heading--col1">&#32;</p> -->
             <p class="table--heading--col1">image</p>
             <p class="table--heading--col2">
                 Product
@@ -54,11 +68,9 @@ import { useRouter } from "vue-router";
             <p class="table--heading--col3">
                 Inventory
             </p>
-            <!-- <p class="table--heading--col5">&#32;</p> -->
             <p class="table--heading--col5">actions</p>
         </div>
 
-        <!-- product 1 -->
         <div class="table--items products__list__item" v-for="product in products" :key="product.id" >
             <div class="products__list__item--imgWrapper">
                 <img class="products__list__item--img" :src="ourImage(product.image)" style="height: 40px;">
@@ -76,8 +88,8 @@ import { useRouter } from "vue-router";
                 <button class="btn-icon btn-icon-success" @click="editProduct(product.id)">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn-icon btn-icon-danger" >
-                    <i class="far fa-trash-alt"></i>
+                <button class="btn-icon btn-icon-danger" @click="deleteProduct(product.id)">
+                    <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>

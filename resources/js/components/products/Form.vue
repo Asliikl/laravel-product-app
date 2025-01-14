@@ -29,7 +29,6 @@ const getProduct = async () => {
         const response = await axios.get(`/api/products/${route.params.id}/edit`);
         const product = response.data.product;
         
-        // Form verilerini doldur
         form.name = product.name;
         form.description = product.description;
         form.image = product.image;
@@ -68,7 +67,6 @@ const handleSave = async () => {
         let url = '/api/products';
         let method = 'post';
 
-        // Eğer edit modundaysa
         if (route.params.id) {
             url = `/api/products/${route.params.id}`;
             method = 'put';
@@ -121,7 +119,6 @@ const handleSave = async () => {
                                <img :src="getImage()" class="products__create__main--media--images--item--img" alt="Product Image" />
                            </div>
                        </li>
-                       <!-- Upload image -->
                        <li class="products__create__main--media--images--item">
                            <form class="products__create__main--media--images--item--form">
                                <input class="products__create__main--media--images--item--form--input" 
@@ -141,7 +138,6 @@ const handleSave = async () => {
 
         <div class="products__create__sidebar">
             <div class="card py-2 px-2 bg-white">
-                <!-- Product type -->
                 <div class="my-3">
                     <p>Category</p>
                     <input type="text" class="input" v-model="form.type" />

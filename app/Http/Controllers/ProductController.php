@@ -31,7 +31,6 @@ class ProductController extends Controller
                 'image' => 'nullable'
             ]);
 
-            // Resim işleme
             if ($request->has('image') && !empty($request->image)) {
                 if (strpos($request->image, 'base64') !== false) {
                     $image = $request->image;
@@ -105,7 +104,6 @@ class ProductController extends Controller
 
             $product = Product::findOrFail($id);
 
-            // Resim işleme
             if ($request->has('image') && !empty($request->image)) {
                 if (strpos($request->image, 'base64') !== false) {
                     $image = $request->image;
@@ -118,7 +116,7 @@ class ProductController extends Controller
                         unlink('upload/' . $product->image);
                     }
                     
-                    // Yeni resmi kaydet
+                    // Yeni resim
                     file_put_contents('upload/' . $fileName, $image_base64);
                     $validated['image'] = $fileName;
                 }
@@ -138,6 +136,31 @@ class ProductController extends Controller
                 'message' => 'Validasyon hatası',
                 'errors' => $e->errors()
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bir hata oluştu',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $product = Product::findOrFail($id);
+
+            // Eski resmi sil
+            if ($product->image && file_exists('upload/' . $product->image)) {
+                unlink('upload/' . $product->image);
+            }
+
+            $product->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Ürün başarıyla silindi'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
